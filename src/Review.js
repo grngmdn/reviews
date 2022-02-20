@@ -15,6 +15,8 @@ function Review() {
   const [index, setIndex] = useState(0)
   const {id, name, job, image, text} = data[index]
 
+
+  // logic to loop the reviews at the beginning and the end
   const checkNumber= (number) => {
 
     if (number > data.length - 1){
@@ -28,6 +30,7 @@ function Review() {
     return number
   } 
 
+  // logic to select the next review
   const nextPerson = () => {
     setIndex(index => {
       const newIndex = index + 1
@@ -35,11 +38,21 @@ function Review() {
     })
   }
 
-  const previousPerson = (index) => {
+  // logic to select the previous review
+  const previousPerson = () => {
     setIndex(index => {
       const newIndex = index - 1
       return checkNumber(newIndex)
     })
+  }
+
+  // logic to select a random review
+  const randomPerson = () => {
+    let randomNumber = Math.floor(Math.random() * data.length)
+    if(randomNumber === index) {
+      randomNumber = index + 1
+    }
+    setIndex(checkNumber(randomNumber))
   }
 
 
@@ -134,7 +147,7 @@ function Review() {
                 </Box>
                 <Button
                   variant="outlined"
-                  // onClick={randomPerson}
+                  onClick={randomPerson}
                 >
                   Surprise me
                 </Button>
