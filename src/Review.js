@@ -12,8 +12,36 @@ import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa';
 
 function Review() {
 
-  const [index, setIndex] = useState(1)
+  const [index, setIndex] = useState(0)
   const {id, name, job, image, text} = data[index]
+
+  const checkNumber= (number) => {
+
+    if (number > data.length - 1){
+      return 0
+    }
+
+    if (number < 0){
+      return data.length - 1
+    }
+
+    return number
+  } 
+
+  const nextPerson = () => {
+    setIndex(index => {
+      const newIndex = index + 1
+      return checkNumber(newIndex)
+    })
+  }
+
+  const previousPerson = (index) => {
+    setIndex(index => {
+      const newIndex = index - 1
+      return checkNumber(newIndex)
+    })
+  }
+
 
   return (
     <Box
@@ -93,15 +121,20 @@ function Review() {
                     paddingTop: "10px"
                   }}
                 >
-                  <Button>
+                  <Button
+                    onClick={previousPerson}
+                  >
                     <FaChevronLeft />
                   </Button>
-                  <Button>
+                  <Button
+                    onClick={nextPerson}
+                  >
                     <FaChevronRight />
                   </Button>
                 </Box>
                 <Button
                   variant="outlined"
+                  // onClick={randomPerson}
                 >
                   Surprise me
                 </Button>
